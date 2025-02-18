@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registrations</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom color theme */
+        body {
+            background-color: #f4f6f9; /* Light gray background */
+            color: #333333; /* Dark text for readability */
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 30px;
+        }
+
+        h2 {
+            color: #2c3e50; /* Dark blue for the main title */
+        }
+
+        table {
+            background-color: #ffffff; /* White table background */
+            border-radius: 5px; /* Rounded corners for the table */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        .table th {
+            background-color: #2c3e50; /* Dark blue for table headers */
+            color: white; /* White text in the headers */
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .btn-success {
+            background-color: #2ecc71; /* Green button color */
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60; /* Darker green on hover */
+        }
+
+        .btn-primary {
+            background-color: #3498db; /* Blue button color */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        .btn {
+            border-radius: 5px; /* Rounded corners for buttons */
+        }
+
+        .text-center a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .text-center a:hover {
+            color: #f8f9fa; /* Light color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Registrations for Event ID: <%= eventId %></h2>
+        
+        <!-- Check if there are registrations for this event -->
+        <% if (registrations.length > 0) { %>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No</th>
+                        <th>PRN</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% registrations.forEach(reg => { %>
+                        <tr>
+                            <td><%= reg.student_name %></td>
+                            <td><%= reg.roll_no %></td>
+                            <td><%= reg.prn_number || 'N/A' %></td> <!-- Show 'N/A' if PRN is null -->
+                            <td><%= reg.email %></td>
+                            <td><%= reg.phone_number %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No registrations for this event yet.</p>
+        <% } %>
+
+        <!-- Button to download registration data in Excel -->
+        <div class="text-center mt-4">
+            <a href="/downloadRegistrations/<%= eventId %>" class="btn btn-success">Download Registration Data (Excel)</a>
+        </div>
+
+        <!-- Button to return to event list -->
+        <div class="mt-4">
+            <a href="/events" class="btn btn-primary">Back to Events</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

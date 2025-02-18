@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for <%= event.event_name %></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/style1.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Evento</a>
+        <div class="ml-auto">
+            <button class="btn btn-danger" id="logout"><a href="/logout" class="text-white">Logout</a></button>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <section class="body mt-4">
+        <div class="container">
+            <h2 class="text-center mb-4">Register for <%= event.event_name %></h2>
+
+            <form action="/register/<%= event.id %>" method="POST">
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" class="form-control" id="studentName" name="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="rollNo">Roll Number</label>
+                    <input type="text" class="form-control" id="rollNo" name="rollNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="prnNumber">PRN (Optional)</label>
+                    <input type="text" class="form-control" id="prnNumber" name="prnNumber">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

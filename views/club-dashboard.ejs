@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Dashboard</title>
+</head>
+<body>
+  <h1>Club Dashboard</h1>
+  <h2>Registrations</h2>
+  <table>
+    <tr>
+      <th>Student Name</th>
+      <th>Class</th>
+      <th>PRN Number</th>
+      <th>Phone Number</th>
+      <th>Email</th>
+    </tr>
+    <% registrations.forEach(function(reg) { %>
+      <tr>
+        <td><%= reg.student_name %></td>
+        <td><%= reg.student_class %></td>
+        <td><%= reg.prn_number %></td>
+        <td><%= reg.phone_number %></td>
+        <td><%= reg.email %></td>
+      </tr>
+    <% }); %>
+  </table>
+  <a href="/download-registrations">Download Registrations</a>
+</body>
+</html>

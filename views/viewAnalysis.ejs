@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Registration Analysis</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Table of registration counts -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Club Name</th>
+                            <th>Total Registrations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (const [clubName, total] of Object.entries(clubRegistrations)) { %>
+                            <tr>
+                                <td><%= clubName %></td>
+                                <td><%= total %></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <!-- Pie Chart -->
+                <canvas id="registrationPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        const ctx = document.getElementById('registrationPieChart').getContext('2d');
+
+        // Data passed from the backend
+        const clubData = <%= JSON.stringify(clubRegistrations) %>;
+        const labels = Object.keys(clubData); // Club names
+        const data = Object.values(clubData); // Registration counts
+
+        // Pie Chart Configuration
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

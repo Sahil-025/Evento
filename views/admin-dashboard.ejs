@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <h2>Unapproved Events</h2>
+  <table>
+    <tr>
+      <th>Event Name</th>
+      <th>Action</th>
+    </tr>
+    <% events.forEach(function(event) { %>
+      <tr>
+        <td><%= event.event_name %></td>
+        <td><a href="/approve-event/<%= event.id %>">Approve</a></td>
+      </tr>
+    <% }); %>
+  </table>
+</body>
+</html>

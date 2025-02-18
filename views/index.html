@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Evento</title>
+
+    <!-- Include Bootstrap from CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Light Blue Background */
+            font-family: 'Arial', sans-serif;
+            background-image: url('../assets/pic2.jpeg'); /* Add background image URL */
+            background-size: cover; /* Ensure the background covers the entire page */
+            background-position: center center; /* Centers the background image */
+            background-attachment: fixed; /* Makes the background image fixed during scrolling */
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9); /* White with transparency */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #007bff; /* Blue for labels */
+        }
+
+        .btn-block {
+            background-color: #007bff; /* Primary Blue */
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .btn-block:hover {
+            background-color: #0056b3; /* Darker Blue on hover */
+        }
+
+        .info h1 {
+            font-size: 2.5rem;
+            color: #007bff; /* Blue Color for heading */
+        }
+
+        .info p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        #login1:hover{
+           
+            color:white;
+
+        }
+    </style>
+    <script>
+        // Function to toggle login fields based on user type
+        function toggleLoginFields() {
+            const userType = document.querySelector('select[name="userType"]').value;
+            const usernameField = document.getElementById("usernameField");
+            const passwordField = document.getElementById("passwordField");
+
+            if (userType === "student") {
+                usernameField.style.display = "none";
+                passwordField.style.display = "none";
+            } else {
+                usernameField.style.display = "block";
+                passwordField.style.display = "block";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <section class="body d-flex align-items-center justify-content-center min-vh-100">
+        <div class="container">
+            <!-- Login Form -->
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-container">
+                        <h2 class="text-center mb-4">User Login</h2>
+
+                        <!-- Form to login -->
+                        <form action="/" method="POST">
+                            <!-- Select User Type -->
+                            <div class="form-group">
+                                <label for="userType">Select User Type</label>
+                                <select name="userType" class="form-control" required onchange="toggleLoginFields()">
+                                    <option value="" disabled selected>Select User Type</option>
+                                    <option value="student">Student</option>
+                                    <option value="clubMember">Club Member</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <!-- Username and Password Fields (Hidden for Student) -->
+                            <div id="usernameField" class="form-group" style="display: none;">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" class="form-control" placeholder="Enter your username" />
+                            </div>
+
+                            <div id="passwordField" class="form-group" style="display: none;">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="Enter your password" />
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-block" id="login1">Login</button>
+                        </form>
+
+                        <!-- Information Section -->
+                        <div class="info text-center mt-4">
+                            <h1>Evento</h1>
+                            <p>Your Club’s New Home: Connect, Collaborate, Celebrate!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Evento. All rights reserved.</p>
+    </div>
+
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

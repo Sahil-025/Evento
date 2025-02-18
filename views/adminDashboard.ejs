@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <div class="container mt-4">
+        <h2>Admin Dashboard</h2>
+
+        <!-- Pending Events Section -->
+        <h3>Pending Events</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Approved</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pendingEvents.forEach(event => { %>
+                    <tr>
+                        <td><%= event.name %></td>
+                        <td><%= event.date %></td>
+                        <td><%= event.approved ? 'Yes' : 'No' %></td>
+                        <td>
+                            <!-- Approve Button -->
+                            <form action="/approveEvent/<%= event.id %>" method="POST" style="display:inline;">
+                                <input type="hidden" name="eventId" value="<%= event.id %>">
+                                <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
+                            
+                            <!-- Delete Button -->
+                            <form action="/deleteEvent/<%= event.id %>" method="POST" style="display:inline;">
+                                <input type="hidden" name="eventId" value="<%= event.id %>">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Approved Events Section -->
+        <h3>Approved Events</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Venue</th>
+                    <th>Club Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% approvedEvents.forEach(event => { %>
+                    <tr>
+                        <td><%= event.name %></td>
+                        <td><%= event.date %></td>
+                        <td><%= event.time %></td>
+                        <td><%= event.venue %></td>
+                        <td><%= event.clubName %></td>
+                        <td><%= event.eventDescription %></td>
+                        <td>
+                            <!-- Delete Button -->
+                            <form action="/deleteEvent/<%= event.id %>" method="POST" style="display:inline;">
+                                <input type="hidden" name="eventId" value="<%= event.id %>">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events</title>
+    <!-- Add Bootstrap CDN for styling -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/style1.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9; /* Light gray background */
+            color: #333333; /* Dark text for readability */
+        }
+
+        .navbar {
+            background-color: #3498db; /* Blue navbar */
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Slight hover effect */
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: #3498db; /* Blue button color */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .registration-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .search-container input {
+            width: 100%;
+        }
+
+        .search-container svg {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Evento</a>
+        <div class="ml-auto">
+            <button class="btn btn-danger" id="logout"><a href="/logout" class="text-white">Logout</a></button>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="body mt-4">
+        <div class="container">
+            <h2 class="text-center mb-5">Upcoming Events</h2>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" id="serachlogo" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <input type="text" id="eventSearch" class="form-control" placeholder="Search events by name, venue, or club..." onkeyup="searchEvents()">
+            </div>
+
+            <% if (events.length > 0) { %>
+            <div class="row" id="eventList">
+                <% events.forEach(event => { %>
+                <div class="col-md-4 mb-4 event-card" data-name="<%= event.name.toLowerCase() %>" data-venue="<%= event.venue.toLowerCase() %>" data-club="<%= event.clubName.toLowerCase() %>">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= event.name %></h5>
+                            <p class="card-text"><strong>Date:</strong> <%= event.date %></p>
+                            <p class="card-text"><strong>Time:</strong> <%= event.time %></p>
+                            <p class="card-text"><strong>Venue:</strong> <%= event.venue %></p>
+                            <p class="card-text"><strong>Club:</strong> <%= event.clubName %></p>
+                            <p class="card-text"><%= event.eventDescription %></p>
+
+                            <!-- Register Event Button -->
+                            <button class="btn btn-primary" onclick="toggleForm(<%= event.id %>)">Register</button>
+
+                            <!-- Registration Form -->
+                            <div class="registration-form" id="form_<%= event.id %>">
+                                <form action="/registerEvent" method="POST">
+                                    <input type="hidden" name="eventId" value="<%= event.id %>">
+                                    <div class="form-group">
+                                        <input type="text" name="studentName" placeholder="Your Name" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="studentClass" required class="form-control">
+                                            <option value="" disabled selected>Class</option>
+                                            <option value="First Year">First Year</option>
+                                            <option value="Second Year">Second Year</option>
+                                            <option value="Third Year">Third Year</option>
+                                            <option value="Final Year">Final Year</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="department" placeholder="Department" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="prnNumber" placeholder="PRN Number" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="phoneNumber" placeholder="Phone Number" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" placeholder="Email" required class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block mt-2">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <% } else { %>
+            <p class="text-center">No upcoming events at the moment.</p>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Add Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to toggle visibility of the registration form
+        function toggleForm(eventId) {
+            var form = document.getElementById('form_' + eventId);
+            // Toggle the form's visibility
+            form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+        }
+
+        // Function to filter events based on search input
+        function searchEvents() {
+            var input = document.getElementById('eventSearch').value.toLowerCase();
+            var eventCards = document.getElementsByClassName('event-card');
+            
+            for (var i = 0; i < eventCards.length; i++) {
+                var eventCard = eventCards[i];
+                var name = eventCard.getAttribute('data-name');
+                var venue = eventCard.getAttribute('data-venue');
+                var club = eventCard.getAttribute('data-club');
+                
+                if (name.includes(input) || venue.includes(input) || club.includes(input)) {
+                    eventCard.style.display = '';
+                } else {
+                    eventCard.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
